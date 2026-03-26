@@ -2,6 +2,7 @@
   "expo": {
     "name": "sisalezat-app",
     "slug": "sisalezat-app",
+    "scheme": "sisalezat",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

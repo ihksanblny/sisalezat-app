@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, Text, View, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
-import { ChevronLeft, MapPin, Clock, Star, Share2 } from 'lucide-react-native';
+import { ChevronLeft, MapPin, Clock, Star, Share2, User } from 'lucide-react-native';
 // Hooks & Styles
 import { useFoodDetail } from '../hooks/useFoodDetail';
 import { styles } from '../styles/screens/DetailScreen.styles';
+import { getProfile } from '../lib/services/profile';
+import { Profile } from '../lib/types';
+import { COLORS } from '../styles/theme';
 
 export default function DetailScreen({ route, navigation }: any) {
   const { item } = route.params;
-
-  // Semua logika booking & realtime ditarik dari hook useFoodDetail
   const { isBooking, currentStock, handleClaim } = useFoodDetail(item);
+  const [poster, setPoster] = useState<Profile | null>(null);
+
+  useEffect(() => {
+    if (item.user_id) {
+      getProfile(item.user_id).then(setPoster);
+    }
+  }, [item.user_id]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -34,6 +42,22 @@ export default function DetailScreen({ route, navigation }: any) {
             </View>
           </View>
           <Text style={styles.itemName}>{item.name}</Text>
+
+          {/* Profil Penjual */}
+          {poster && (
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, padding: 12, backgroundColor: COLORS.background, borderRadius: 12 }}>
+              {poster.avatar_url
+                ? <Image source={{ uri: poster.avatar_url }} style={{ width: 38, height: 38, borderRadius: 19 }} />
+                : <View style={{ width: 38, height: 38, borderRadius: 19, backgroundColor: COLORS.grayLight, justifyContent: 'center', alignItems: 'center' }}>
+                    <User size={20} color={COLORS.grayMedium} />
+                  </View>
+              }
+              <View style={{ marginLeft: 10 }}>
+                <Text style={{ fontSize: 12, color: COLORS.textLight }}>Dijual oleh</Text>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: COLORS.text }}>{poster.display_name || 'Penjual'}</Text>
+              </View>
+            </View>
+          )}
           <View style={styles.badgeRow}>
             <View style={styles.badge}><MapPin size={14} color="#666" /><Text style={styles.badgeText}>1.2 km</Text></View>
             <View style={styles.badge}><Clock size={14} color="#666" /><Text style={styles.badgeText}>Ambil: {item.pickup_time}</Text></View>

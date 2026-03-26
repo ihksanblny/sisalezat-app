@@ -35,9 +35,12 @@ export const BottomNav = () => {
         <PlusCircle color={isActive('Merchant') ? COLORS.primary : COLORS.grayMedium} size={32} />
       </TouchableOpacity>
 
-      {/* Tombol Profil (Sementara Placeholder) */}
-      <TouchableOpacity style={styles.navItem}>
-        <User color={COLORS.grayMedium} size={28} />
+      {/* Tombol Profil */}
+      <TouchableOpacity 
+        style={styles.navItem}
+        onPress={() => navigation.navigate('Profile')}
+      >
+        <User color={isActive('Profile') ? COLORS.primary : COLORS.grayMedium} size={28} />
       </TouchableOpacity>
     </View>
   );

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Alert, ActivityIndicator, Image, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { Plus, Camera, ChevronLeft } from 'lucide-react-native';
-import { addFoodItem } from '../lib/services/food';
+import { Camera, ChevronLeft } from 'lucide-react-native';
+import { addFoodItem, uploadFoodImage } from '../lib/services/food';
 import { styles } from '../styles/screens/MerchantScreen.styles';
 import { COLORS } from '../styles/theme';
 
@@ -40,8 +40,17 @@ export default function MerchantScreen({ navigation }: any) {
 
     setLoading(true);
     try {
-      // Untuk MVP ini, kita pakai foto placeholder karena setup Supabase Storage butuh langkah tambahan. 
-      // Link aslinya nanti bisa dikoneksikan ke Storage.
+      let finalImageUrl = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+
+      // 1. Upload Gambar ke Supabase Storage (Cloud)
+      if (image) {
+        const uploadedUrl = await uploadFoodImage(image);
+        if (uploadedUrl) {
+          finalImageUrl = uploadedUrl;
+        }
+      }
+
+      // 2. Simpan Data ke Database dengan Link Gambar Cloud
       const foodData = {
         name,
         store_name,
@@ -49,13 +58,14 @@ export default function MerchantScreen({ navigation }: any) {
         discount_price: parseInt(discount_price),
         stock: parseInt(stock),
         pickup_time,
-        image_url: image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+        image_url: finalImageUrl,
       };
 
       await addFoodItem(foodData);
-      Alert.alert('Sukses!', 'Makanan Anda kini sudah tampil di beranda bagi pembeli.');
+      Alert.alert('Sukses!', 'Makanan Anda kini sudah tampil dengan gambar yang jernih di beranda!');
       navigation.goBack();
     } catch (error: any) {
+      console.error(error);
       Alert.alert('Waduh', 'Gagal mendaftarkan makanan. Coba lagi nanti.');
     } finally {
       setLoading(false);

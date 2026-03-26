@@ -17,4 +17,10 @@ export const styles = StyleSheet.create({
   newPrice: { color: COLORS.primary, fontSize: 18, fontWeight: 'bold' },
   stockLabel: { backgroundColor: '#FFF5F5', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 10 },
   stockText: { color: COLORS.primary, fontSize: 10, fontWeight: 'bold' },
+
+  // Tampilan Sold Out
+  cardDisabled: { opacity: 0.7 },
+  soldOutOverlay: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.45)', justifyContent: 'center', alignItems: 'center', zIndex: 10 },
+  soldOutStamp: { borderWidth: 3, borderColor: '#FF4444', borderRadius: 8, paddingHorizontal: 14, paddingVertical: 6, transform: [{ rotate: '-20deg' }] },
+  soldOutText: { color: '#FF4444', fontSize: 26, fontWeight: '900', letterSpacing: 4 },
 });

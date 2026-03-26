@@ -8,4 +8,12 @@ export interface FoodItem {
   pickup_time: string;
   image_url: string;
   created_at: string;
+  user_id?: string;
+}
+
+export interface Profile {
+  id: string;
+  display_name: string | null;
+  avatar_url: string | null;
+  updated_at: string;
 }

@@ -93,11 +93,20 @@ export const claimFoodItem = async (itemId: string, currentStock: number) => {
     throw new Error('Stok sudah habis');
   }
 
+  const newStock = currentStock - 1;
+
+  // Jika stok habis, simpan juga waktu kapan item ini sold out
+  const updatePayload: any = { stock: newStock };
+  if (newStock <= 0) {
+    updatePayload.sold_at = new Date().toISOString();
+  }
+
   const { data, error } = await supabase
     .from('items')
-    .update({ stock: currentStock - 1 })
+    .update(updatePayload)
     .eq('id', itemId);
 
   if (error) throw error;
   return data;
 }
+

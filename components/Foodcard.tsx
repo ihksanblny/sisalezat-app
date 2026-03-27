@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
-import { Star, Clock } from 'lucide-react-native';
+import { Clock } from 'lucide-react-native';
 import { FoodItem } from '../lib/types';
 import { styles } from '../styles/components/FoodCard.styles';
+import { StarRating } from './StarRating';
 
 interface Props {
   item: FoodItem;
@@ -10,16 +11,25 @@ interface Props {
 }
 
 export const FoodCard = ({ item, onPress }: Props) => {
+  const isSoldOut = item.stock <= 0;
+
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.card, isSoldOut && styles.cardDisabled]}
+      onPress={!isSoldOut ? onPress : undefined}
+      activeOpacity={isSoldOut ? 1 : 0.7}
+    >
       <Image source={{ uri: item.image_url }} style={styles.cardImage} />
+
       <View style={styles.cardContent}>
         <View style={styles.cardHeader}>
           <Text style={styles.storeName}>{item.store_name}</Text>
-          <View style={styles.ratingBox}>
-            <Star size={12} color="#FFD93D" fill="#FFD93D" />
-            <Text style={styles.ratingText}>4.8</Text>
-          </View>
+          <StarRating
+            itemId={item.id}
+            avgRating={item.avg_rating}
+            ratingCount={item.rating_count}
+            mode="display"
+          />
         </View>
         <Text style={styles.itemName}>{item.name}</Text>
         <View style={styles.infoRow}>
@@ -36,6 +46,15 @@ export const FoodCard = ({ item, onPress }: Props) => {
           </View>
         </View>
       </View>
+
+      {/* Overlay SOLD OUT saat stok habis */}
+      {isSoldOut && (
+        <View style={styles.soldOutOverlay}>
+          <View style={styles.soldOutStamp}>
+            <Text style={styles.soldOutText}>HABIS</Text>
+          </View>
+        </View>
+      )}
     </TouchableOpacity>
   );
 };

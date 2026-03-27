@@ -5,6 +5,7 @@ import { Camera, ChevronLeft } from 'lucide-react-native';
 import { addFoodItem, uploadFoodImage } from '../lib/services/food';
 import { styles } from '../styles/screens/MerchantScreen.styles';
 import { COLORS } from '../styles/theme';
+import { TimeRangePicker } from '../components/TimeRangePicker';
 
 export default function MerchantScreen({ navigation }: any) {
   const [loading, setLoading] = useState(false);
@@ -141,7 +142,7 @@ export default function MerchantScreen({ navigation }: any) {
              </View>
           </View>
 
-          <View style={styles.rowInputs}>
+           <View style={styles.rowInputs}>
              <View style={[styles.inputGroup, styles.halfInput]}>
                 <Text style={styles.label}>Stok Tersisa</Text>
                 <TextInput 
@@ -152,16 +153,16 @@ export default function MerchantScreen({ navigation }: any) {
                   onChangeText={(t) => setForm({...form, stock: t})}
                 />
              </View>
-             <View style={[styles.inputGroup, styles.halfInput]}>
-                <Text style={styles.label}>Jam Ambil</Text>
-                <TextInput 
-                  placeholder="18:00 - 20:00" 
-                  style={styles.input}
-                  value={form.pickup_time}
-                  onChangeText={(t) => setForm({...form, pickup_time: t})}
-                />
-             </View>
-          </View>
+           </View>
+
+           {/* Time Range Picker */}
+           <View style={styles.inputGroup}>
+             <Text style={styles.label}>Jam Ambil</Text>
+             <TimeRangePicker
+               value={form.pickup_time}
+               onChange={(val) => setForm({...form, pickup_time: val})}
+             />
+           </View>
 
           <TouchableOpacity 
             style={[styles.submitButton, loading && styles.disabledButton]} 

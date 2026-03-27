@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, Text, View, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
-import { ChevronLeft, MapPin, Clock, Star, Share2, User } from 'lucide-react-native';
+import { ChevronLeft, MapPin, Clock, Share2, User } from 'lucide-react-native';
 // Hooks & Styles
 import { useFoodDetail } from '../hooks/useFoodDetail';
 import { styles } from '../styles/screens/DetailScreen.styles';
 import { getProfile } from '../lib/services/profile';
 import { Profile } from '../lib/types';
 import { COLORS } from '../styles/theme';
+import { StarRating } from '../components/StarRating';
 
 export default function DetailScreen({ route, navigation }: any) {
   const { item } = route.params;
@@ -36,10 +37,12 @@ export default function DetailScreen({ route, navigation }: any) {
         <View style={styles.content}>
           <View style={styles.titleRow}>
             <Text style={styles.storeName}>{item.store_name}</Text>
-            <View style={styles.ratingBox}>
-              <Star size={16} color="#FFD93D" fill="#FFD93D" />
-              <Text style={styles.ratingText}>4.8 (200+ rating)</Text>
-            </View>
+            <StarRating
+              itemId={item.id}
+              avgRating={item.avg_rating}
+              ratingCount={item.rating_count}
+              mode="display"
+            />
           </View>
           <Text style={styles.itemName}>{item.name}</Text>
 
@@ -70,6 +73,17 @@ export default function DetailScreen({ route, navigation }: any) {
             <Text style={styles.descriptionText}>
               Nikmati paket makanan lezat yang kami selamatkan hari ini. Kualitas masih terjaga 100%. Dengan membeli ini, Anda sudah membantu mengurangi limbah makanan!
             </Text>
+          </View>
+
+          {/* Rating Interaktif */}
+          <View style={[styles.descriptionSection, { alignItems: 'center' }]}>
+            <Text style={styles.sectionTitle}>Beri Rating</Text>
+            <StarRating
+              itemId={item.id}
+              avgRating={item.avg_rating}
+              ratingCount={item.rating_count}
+              mode="interactive"
+            />
           </View>
         </View>
       </ScrollView>

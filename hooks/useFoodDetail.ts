@@ -27,7 +27,7 @@ export const useFoodDetail = (item: any) => {
     };
   }, [item.id]);
 
-  const handleClaim = async (onSuccess?: () => void) => {
+  const handleClaim = async (onSuccess?: () => void, paymentMethod: 'cod' | 'qris' = 'cod') => {
     if (currentStock <= 0) {
       Alert.alert('Habis', 'Maaf, makanan ini sudah tidak tersedia.');
       return;
@@ -35,8 +35,11 @@ export const useFoodDetail = (item: any) => {
 
     setIsBooking(true);
     try {
-      await claimFoodItem(item.id, currentStock);
-      Alert.alert('Berhasil!', 'Makanan berhasil dipesan! Segera ambil di toko.');
+      await claimFoodItem(item.id, currentStock, paymentMethod);
+      const msg = paymentMethod === 'qris' 
+        ? 'Pesanan dibuat! Silakan bayar via QRIS di riwayat klaim Anda.' 
+        : 'Pesanan berhasil! Silakan bayar saat pengambilan di toko.';
+      Alert.alert('Berhasil!', msg);
       if (onSuccess) onSuccess();
     } catch (error) {
       Alert.alert('Gagal', 'Sistem gagal memproses pesanan Anda.');

@@ -3,7 +3,20 @@ import { COLORS, RADIUS, SPACING } from '../theme';
 
 export const styles = StyleSheet.create({
   card: { backgroundColor: COLORS.white, borderRadius: RADIUS.l, marginBottom: SPACING.l, overflow: 'hidden', elevation: 3, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 10, flexDirection: 'row' },
+  imageContainer: {
+    position: 'relative',
+    width: 100,
+    height: 130,
+  },
   cardImage: { width: 100, height: 130 },
+  heartButton: {
+    position: 'absolute',
+    top: 5,
+    right: 5,
+    padding: 6,
+    borderRadius: 20,
+    backgroundColor: 'rgba(0,0,0,0.1)',
+  },
   cardContent: { flex: 1, padding: SPACING.m },
   cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   storeName: { color: COLORS.textLighter, fontSize: 12 },

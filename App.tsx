@@ -10,6 +10,10 @@ import LoginScreen from './screens/LoginScreen';
 import MerchantScreen from './screens/MerchantScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import MyPostsScreen from './screens/MyPostsScreen';
+import SearchScreen from './screens/SearchScreen';
+import FavoritesScreen from './screens/FavoritesScreen';
+import HistoryScreen from './screens/HistoryScreen';
+import IncomingOrdersScreen from './screens/IncomingOrdersScreen';
 
 // Hooks & Theme
 import { useAuth } from './hooks/useAuth';
@@ -17,10 +21,11 @@ import { COLORS } from './styles/theme';
 
 const Stack = createNativeStackNavigator();
 
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 export default function App() {
   const { session, loading } = useAuth();
 
-  // Tampilkan loading screen saat mengecek status login (Sangat Premium!)
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS.white }}>
@@ -30,22 +35,26 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {session ? (
-          // Jika SUDAH LOGIN, tampilkan aplikasi utama
-          <>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Detail" component={DetailScreen} />
-            <Stack.Screen name="Merchant" component={MerchantScreen} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
-            <Stack.Screen name="MyPosts" component={MyPostsScreen} />
-          </>
-        ) : (
-          // Jika BELUM LOGIN, tampilkan hanya layar login
-          <Stack.Screen name="Login" component={LoginScreen} />
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          {session ? (
+            <>
+              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen name="Detail" component={DetailScreen} />
+              <Stack.Screen name="Merchant" component={MerchantScreen} />
+              <Stack.Screen name="Profile" component={ProfileScreen} />
+              <Stack.Screen name="MyPosts" component={MyPostsScreen} />
+              <Stack.Screen name="Search" component={SearchScreen} />
+              <Stack.Screen name="Favorites" component={FavoritesScreen} />
+              <Stack.Screen name="History" component={HistoryScreen} />
+              <Stack.Screen name="IncomingOrders" component={IncomingOrdersScreen} />
+            </>
+          ) : (
+            <Stack.Screen name="Login" component={LoginScreen} />
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }

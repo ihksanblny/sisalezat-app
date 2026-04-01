@@ -88,25 +88,52 @@ export const deleteFoodItem = async (itemId: string) => {
   if (error) throw error;
 };
 
-export const claimFoodItem = async (itemId: string, currentStock: number) => {
+export const claimFoodItem = async (itemId: string, currentStock: number, paymentMethod: 'cod' | 'qris' = 'cod') => {
   if (currentStock <= 0) {
     throw new Error('Stok sudah habis');
   }
 
-  const newStock = currentStock - 1;
+  // 1. Ambil data user pembeli dan info item (khususnya seller_id)
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Harus login untuk klaim');
 
-  // Jika stok habis, simpan juga waktu kapan item ini sold out
+  const { data: food, error: foodError } = await supabase
+    .from('items')
+    .select('user_id')
+    .eq('id', itemId)
+    .single();
+  
+  if (foodError || !food) throw new Error('Data makanan tidak ditemukan');
+
+  const newStock = currentStock - 1;
   const updatePayload: any = { stock: newStock };
   if (newStock <= 0) {
     updatePayload.sold_at = new Date().toISOString();
   }
 
-  const { data, error } = await supabase
+  // 2. Update Stok
+  const { error: updateError } = await supabase
     .from('items')
     .update(updatePayload)
     .eq('id', itemId);
 
-  if (error) throw error;
-  return data;
+  if (updateError) throw updateError;
+
+  // 3. Catat di tabel claims dengan payment_method
+  const { error: claimError } = await supabase
+    .from('claims')
+    .insert({
+      user_id: user.id,
+      item_id: itemId,
+      seller_id: food.user_id,
+      status: 'pending',
+      payment_method: paymentMethod
+    });
+
+  if (claimError) {
+    console.error('Klaim tercatat tapi stok berkurang:', claimError);
+  }
+
+  return true;
 }
 

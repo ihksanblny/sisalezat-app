@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, Alert, TextInput, Image, ActivityIndicator } from 'react-native';
-import { User, Settings, LogOut, ChevronRight, Package, Heart, Camera, Check, X } from 'lucide-react-native';
+import { User, Settings, LogOut, ChevronRight, Package, Heart, Camera, Check, X, CreditCard, Ticket, QrCode } from 'lucide-react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
 import { signOut } from '../lib/services/auth';
-import { updateProfile, uploadAvatar } from '../lib/services/profile';
+import { updateProfile, uploadAvatar, uploadQris } from '../lib/services/profile';
 import { styles } from '../styles/screens/ProfileScreen.styles';
 import { COLORS } from '../styles/theme';
 import { BottomNav } from '../components/BottomNav';
@@ -19,6 +19,7 @@ export default function ProfileScreen({ navigation }: any) {
   const [editName, setEditName] = useState('');
   const [saving, setSaving] = useState(false);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const [uploadingQris, setUploadingQris] = useState(false);
 
   const startEdit = () => {
     setEditName(profile?.display_name || '');
@@ -57,10 +58,34 @@ export default function ProfileScreen({ navigation }: any) {
       const avatarUrl = await uploadAvatar(user.id, uri);
       const updated = await updateProfile(user.id, { avatar_url: avatarUrl });
       setProfile(updated);
-    } catch {
+    } catch (error: any) {
+      console.error(error);
       Alert.alert('Gagal', 'Tidak bisa mengganti foto profil.');
     } finally {
       setUploadingAvatar(false);
+    }
+  };
+
+  const handleUploadQris = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsEditing: true,
+      quality: 0.7,
+    });
+
+    if (result.canceled || !user) return;
+
+    setUploadingQris(true);
+    try {
+      const uri = result.assets[0].uri;
+      const qrisUrl = await uploadQris(user.id, uri);
+      const updated = await updateProfile(user.id, { qris_url: qrisUrl });
+      setProfile(updated);
+      Alert.alert('Berhasil', 'QRIS Toko telah diperbarui.');
+    } catch {
+      Alert.alert('Gagal', 'Tidak bisa mengunggah QRIS.');
+    } finally {
+      setUploadingQris(false);
     }
   };
 
@@ -148,7 +173,11 @@ export default function ProfileScreen({ navigation }: any) {
         {/* Menu Pilihan */}
         <View style={styles.menuSection}>
           <MenuLink icon={Package} title="Postingan Saya" onPress={() => navigation.navigate('MyPosts')} />
-          <MenuLink icon={Heart} title="Makanan Favorit" onPress={() => {}} />
+          <MenuLink icon={QrCode} title={profile?.qris_url ? "Update QRIS Toko" : "Daftarkan QRIS Toko"} onPress={handleUploadQris} />
+          <MenuLink icon={Ticket} title="Pesanan Masuk (Penjual)" onPress={() => navigation.navigate('IncomingOrders')} />
+          <View style={{ height: 1, backgroundColor: COLORS.border, marginVertical: 10 }} />
+          <MenuLink icon={Heart} title="Makanan Favorit" onPress={() => navigation.navigate('Favorites')} />
+          <MenuLink icon={Ticket} title="Riwayat Klaim (Pembeli)" onPress={() => navigation.navigate('History')} />
         </View>
 
         {/* Tombol Logout */}

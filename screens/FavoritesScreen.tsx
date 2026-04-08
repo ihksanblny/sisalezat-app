@@ -1,13 +1,15 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, FlatList, SafeAreaView, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { ChevronLeft, Heart } from 'lucide-react-native';
 import { getFavoriteItems } from '../lib/services/favorite';
 import { FoodCard } from '../components/Foodcard';
 import { COLORS } from '../styles/theme';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { styles } from '../styles/screens/FavoritesScreen.styles';
 
 export default function FavoritesScreen({ navigation }: any) {
+  const insets = useSafeAreaInsets();
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -29,12 +31,15 @@ export default function FavoritesScreen({ navigation }: any) {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <ChevronLeft color={COLORS.text} />
+          <ChevronLeft color={COLORS.primary} size={28} />
         </TouchableOpacity>
-        <Text style={styles.title}>Makanan Favorit</Text>
+        <View style={{ flex: 1, marginLeft: 10 }}>
+          <Text style={styles.title}>Makanan Favorit</Text>
+          <Text style={styles.brandSub}>Saved Collection</Text>
+        </View>
         <View style={{ width: 40 }} />
       </View>
 
@@ -44,19 +49,22 @@ export default function FavoritesScreen({ navigation }: any) {
         </View>
       ) : items.length === 0 ? (
         <View style={styles.empty}>
-          <Heart size={60} color={COLORS.grayMedium} />
-          <Text style={styles.emptyTitle}>Belum ada favorit</Text>
-          <Text style={styles.emptySub}>Sukai makanan yang Anda incar untuk menyimpannya di sini!</Text>
+          <View style={styles.emptyIconCircle}>
+            <Heart size={40} color={COLORS.accent} fill={COLORS.accent} />
+          </View>
+          <Text style={styles.emptyTitle}>Your heart is empty</Text>
+          <Text style={styles.emptySub}>Sukai makanan premium yang Anda inginkan untuk menyimpannya dalam koleksi pribadi.</Text>
           <TouchableOpacity 
             style={styles.browseButton}
             onPress={() => navigation.navigate('Home')}
           >
-            <Text style={styles.browseText}>Cari Makanan</Text>
+            <Text style={styles.browseText}>Jelajahi Makanan</Text>
           </TouchableOpacity>
         </View>
       ) : (
         <FlatList
           data={items}
+          numColumns={2}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <FoodCard 
@@ -64,10 +72,11 @@ export default function FavoritesScreen({ navigation }: any) {
               onPress={() => navigation.navigate('Detail', { item })} 
             />
           )}
+          columnWrapperStyle={styles.columnWrapper}
           contentContainerStyle={styles.list}
           showsVerticalScrollIndicator={false}
         />
       )}
-    </SafeAreaView>
+    </View>
   );
 }

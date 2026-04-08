@@ -13,6 +13,70 @@ export const styles = StyleSheet.create({
   ratingText: { marginLeft: 5, fontSize: 12, color: COLORS.textLight },
   itemName: { fontSize: 24, fontWeight: 'bold', marginTop: 10, color: COLORS.text },
   badgeRow: { flexDirection: 'row', marginTop: SPACING.m },
+  ratingInteractiveSection: {
+    padding: SPACING.l,
+    alignItems: 'center',
+    backgroundColor: COLORS.grayLight,
+    borderRadius: RADIUS.m,
+    marginVertical: SPACING.m,
+  },
+
+  // Payment Modal Styles
+  overlay: { 
+    flex: 1, 
+    backgroundColor: 'rgba(0,0,0,0.5)', 
+    justifyContent: 'flex-end' 
+  },
+  modal: { 
+    backgroundColor: COLORS.white, 
+    borderTopLeftRadius: 24, 
+    borderTopRightRadius: 24, 
+    padding: 24, 
+    paddingBottom: 40 
+  },
+  modalHeader: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    marginBottom: 12 
+  },
+  modalTitle: { 
+    fontSize: 20, 
+    fontWeight: 'bold', 
+    color: COLORS.text 
+  },
+  modalSubtitle: { 
+    fontSize: 14, 
+    color: COLORS.textLight, 
+    marginBottom: 24, 
+    lineHeight: 20 
+  },
+  paymentOption: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    padding: 16, 
+    backgroundColor: '#F8F9FA', 
+    borderRadius: 16, 
+    marginBottom: 12 
+  },
+  paymentIconBox: { 
+    width: 48, 
+    height: 48, 
+    borderRadius: 12, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    marginRight: 16 
+  },
+  paymentOptionTitle: { 
+    fontSize: 16, 
+    fontWeight: 'bold', 
+    color: COLORS.text 
+  },
+  paymentOptionDesc: { 
+    fontSize: 12, 
+    color: COLORS.textLight, 
+    marginTop: 2 
+  },
   badge: { flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.grayLight, paddingHorizontal: SPACING.m, paddingVertical: 8, borderRadius: RADIUS.l, marginRight: 10 },
   badgeText: { fontSize: 12, color: COLORS.textLight, marginLeft: 5 },
   descriptionSection: { marginTop: 30 },

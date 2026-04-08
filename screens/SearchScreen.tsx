@@ -108,59 +108,58 @@ export default function SearchScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.white },
+  container: { flex: 1, backgroundColor: COLORS.background },
   header: { 
     flexDirection: 'row', 
     alignItems: 'center', 
     paddingHorizontal: SPACING.l, 
-    paddingBottom: 15,
+    paddingTop: 10, // Tambahan agar tidak mepet
+    paddingBottom: 25,
     gap: 12
   },
   backButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 12,
-    backgroundColor: '#F8F9FA',
+    width: 48,
+    height: 48,
+    borderRadius: RADIUS.m,
+    backgroundColor: COLORS.white,
     justifyContent: 'center',
     alignItems: 'center',
+    ...SHADOWS.light,
   },
   searchContainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F8F9FA',
+    backgroundColor: COLORS.white,
     borderRadius: RADIUS.m,
     paddingHorizontal: 16,
-    height: 50,
-    borderWidth: 1,
-    borderColor: '#F0F0F0',
+    height: 52,
+    ...SHADOWS.light,
   },
-  searchIcon: { marginRight: 10 },
+  searchIcon: { marginRight: 12 },
   searchInput: {
     flex: 1,
     fontSize: 15,
     color: COLORS.text,
-    fontWeight: '500',
+    fontWeight: '600',
   },
   
-  filterSection: { marginBottom: 20 },
+  filterSection: { marginBottom: 25 },
   filterList: { paddingHorizontal: SPACING.l },
   filterChip: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingHorizontal: 22,
+    paddingVertical: 12,
     borderRadius: RADIUS.full,
     backgroundColor: COLORS.white,
-    borderWidth: 1,
-    borderColor: '#EEEEEE',
     marginRight: 10,
+    ...SHADOWS.light,
   },
   filterChipActive: {
     backgroundColor: COLORS.primary,
-    borderColor: COLORS.primary,
   },
   filterText: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: '700',
     color: COLORS.textLight,
   },
   filterTextActive: {
@@ -169,12 +168,14 @@ const styles = StyleSheet.create({
 
   resultHeader: {
     paddingHorizontal: SPACING.l,
-    marginBottom: 15,
+    marginBottom: 20,
   },
   resultTitle: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: COLORS.textLight,
+    fontSize: 13,
+    fontWeight: '800',
+    color: COLORS.accent,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
 
   columnWrapper: {
@@ -182,9 +183,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.l,
   },
   listContainer: {
-    paddingBottom: 30,
+    paddingBottom: 50,
   },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  emptyState: { flex: 1, alignItems: 'center', marginTop: 100 },
-  emptyText: { color: COLORS.textLighter, fontSize: 16 },
+  emptyState: { flex: 1, alignItems: 'center', marginTop: 80, paddingHorizontal: 40 },
+  emptyText: { color: COLORS.textLighter, fontSize: 16, textAlign: 'center', fontWeight: '500' },
 });

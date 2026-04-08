@@ -1,31 +1,49 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, SPACING, RADIUS } from '../theme';
+import { COLORS, SPACING, RADIUS, SHADOWS } from '../theme';
 
 export const styles = StyleSheet.create({
   container: { 
     flex: 1, 
-    backgroundColor: COLORS.white 
+    backgroundColor: COLORS.background 
   },
   header: { 
     flexDirection: 'row', 
     alignItems: 'center', 
     justifyContent: 'space-between', 
-    padding: SPACING.l,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
-    backgroundColor: COLORS.white
+    paddingHorizontal: SPACING.l,
+    paddingTop: 20, // Sudah diturunkan lebih lega
+    paddingBottom: 20,
+    backgroundColor: COLORS.background
   },
   backButton: { 
-    padding: 8 
+    width: 48,
+    height: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.white,
+    borderRadius: RADIUS.m,
+    ...SHADOWS.light
   },
   title: { 
-    fontSize: 18, 
-    fontWeight: 'bold', 
-    color: COLORS.text 
+    fontSize: 22, 
+    fontWeight: '900', 
+    color: COLORS.primary,
+    letterSpacing: -0.5
+  },
+  brandSub: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: COLORS.accent,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+    marginTop: -2,
   },
   list: { 
-    padding: SPACING.l,
-    paddingBottom: 100 // Spasi untuk BottomNav
+    paddingBottom: 100 
+  },
+  columnWrapper: {
+    justifyContent: 'space-between',
+    paddingHorizontal: SPACING.l,
   },
   center: { 
     flex: 1, 
@@ -36,34 +54,43 @@ export const styles = StyleSheet.create({
     flex: 1, 
     justifyContent: 'center', 
     alignItems: 'center', 
-    padding: 40 
+    padding: 60 
+  },
+  emptyIconCircle: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: COLORS.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...SHADOWS.medium
   },
   emptyTitle: { 
-    fontSize: 20, 
-    fontWeight: '700', 
-    color: COLORS.text, 
-    marginTop: 15 
+    fontSize: 24, 
+    fontWeight: '900', 
+    color: COLORS.primary, 
+    marginTop: 25 
   },
   emptySub: { 
     fontSize: 14, 
-    color: COLORS.textLight, 
+    color: COLORS.textLighter, 
     textAlign: 'center', 
-    marginTop: 8,
-    lineHeight: 20
+    marginTop: 10,
+    lineHeight: 22
   },
   browseButton: { 
-    marginTop: 25, 
+    marginTop: 35, 
     backgroundColor: COLORS.primary, 
-    paddingHorizontal: 30, 
-    paddingVertical: 12, 
+    paddingHorizontal: 24, 
+    paddingVertical: 14, 
     borderRadius: RADIUS.m,
-    elevation: 2,
-    shadowColor: COLORS.primary,
-    shadowOpacity: 0.2,
-    shadowRadius: 5
+    ...SHADOWS.medium
   },
   browseText: { 
     color: COLORS.white, 
-    fontWeight: 'bold' 
+    fontWeight: '900',
+    fontSize: 12,
+    letterSpacing: 1,
+    textTransform: 'uppercase'
   }
 });

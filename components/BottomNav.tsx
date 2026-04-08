@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import { Home, Search, Heart, User } from 'lucide-react-native';
+import { Home, Search, Heart, User, Plus } from 'lucide-react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { COLORS, RADIUS, SHADOWS } from '../styles/theme';
 
@@ -13,6 +13,7 @@ export const BottomNav = () => {
   const tabs = [
     { name: 'Home', icon: Home },
     { name: 'Search', icon: Search },
+    { name: 'Merchant', icon: Plus, special: true }, 
     { name: 'Favorites', icon: Heart },
     { name: 'Profile', icon: User },
   ];
@@ -23,6 +24,21 @@ export const BottomNav = () => {
         {tabs.map((tab) => {
           const isActive = route.name === tab.name;
           const Icon = tab.icon;
+
+          if (tab.special) {
+            return (
+              <TouchableOpacity
+                key={tab.name}
+                style={styles.specialTab}
+                onPress={() => navigation.navigate(tab.name)}
+                activeOpacity={0.8}
+              >
+                <View style={styles.specialIconBg}>
+                  <Plus size={26} color={COLORS.white} strokeWidth={3} />
+                </View>
+              </TouchableOpacity>
+            );
+          }
 
           return (
             <TouchableOpacity
@@ -47,7 +63,7 @@ export const BottomNav = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 30, // Melayang sesuai referensi
+    bottom: 30, 
     width: width,
     alignItems: 'center',
     justifyContent: 'center',
@@ -56,10 +72,11 @@ const styles = StyleSheet.create({
   pill: {
     flexDirection: 'row',
     backgroundColor: COLORS.white,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     borderRadius: RADIUS.full,
     justifyContent: 'space-between',
+    alignItems: 'center',
     width: '100%',
     ...SHADOWS.medium,
     borderWidth: 1,
@@ -68,15 +85,31 @@ const styles = StyleSheet.create({
   tab: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 45,
-    height: 45,
+    width: 44,
+    height: 44,
+  },
+  specialTab: {
+    marginTop: -30, 
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  specialIconBg: {
+    width: 54,
+    height: 54,
+    borderRadius: 27,
+    backgroundColor: COLORS.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...SHADOWS.medium,
+    borderWidth: 4,
+    borderColor: COLORS.white,
   },
   activeTab: {
-    // Tidak pakai background hitam di tab icon agar tetap clean sesuai home scren ref
+    // Clean state
   },
   activeDot: {
     position: 'absolute',
-    bottom: -4,
+    bottom: -2,
     width: 5,
     height: 5,
     borderRadius: 2.5,

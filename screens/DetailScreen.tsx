@@ -112,35 +112,35 @@ export default function DetailScreen({ route, navigation }: any) {
 
       {/* MODAL PILIHAN PEMBAYARAN */}
       <Modal visible={showPaymentModal} transparent animationType="slide">
-        <View style={paymentStyles.overlay}>
-          <View style={paymentStyles.modal}>
-            <View style={paymentStyles.header}>
-              <Text style={paymentStyles.title}>Metode Pembayaran</Text>
+        <View style={styles.overlay}>
+          <View style={styles.modal}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Metode Pembayaran</Text>
               <TouchableOpacity onPress={() => setShowPaymentModal(false)}>
                 <X color={COLORS.text} />
               </TouchableOpacity>
             </View>
             
-            <Text style={paymentStyles.subtitle}>Pilih cara Anda membayar makanan ini saat pengambilan nanti.</Text>
+            <Text style={styles.modalSubtitle}>Pilih cara Anda membayar makanan ini saat pengambilan nanti.</Text>
 
             <TouchableOpacity 
-              style={paymentStyles.option} 
+              style={styles.paymentOption} 
               onPress={() => {
                 setShowPaymentModal(false);
                 handleClaim(() => navigation.goBack(), 'cod');
               }}
             >
-              <View style={[paymentStyles.iconBox, { backgroundColor: '#E3F2FD' }]}>
+              <View style={[styles.paymentIconBox, { backgroundColor: '#E3F2FD' }]}>
                 <Banknote color="#1976D2" size={24} />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={paymentStyles.optionTitle}>Bayar di Tempat (COD)</Text>
-                <Text style={paymentStyles.optionDesc}>Bayar tunai saat mengambil makanan di lokasi.</Text>
+                <Text style={styles.paymentOptionTitle}>Bayar di Tempat (COD)</Text>
+                <Text style={styles.paymentOptionDesc}>Bayar tunai saat mengambil makanan di lokasi.</Text>
               </View>
             </TouchableOpacity>
 
             <TouchableOpacity 
-              style={paymentStyles.option} 
+              style={styles.paymentOption} 
               onPress={() => {
                 if (!poster?.qris_url) {
                   Alert.alert('Info', 'Toko ini belum mendaftarkan QRIS. Silakan gunakan metode COD.');
@@ -150,12 +150,12 @@ export default function DetailScreen({ route, navigation }: any) {
                 handleClaim(() => navigation.goBack(), 'qris');
               }}
             >
-              <View style={[paymentStyles.iconBox, { backgroundColor: '#F3E5F5' }]}>
+              <View style={[styles.paymentIconBox, { backgroundColor: '#F3E5F5' }]}>
                 <CreditCard color="#7B1FA2" size={24} />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={paymentStyles.optionTitle}>Scan QRIS Toko</Text>
-                <Text style={paymentStyles.optionDesc}>Bayar lewat aplikasi bank/e-wallet sebelum ambil.</Text>
+                <Text style={styles.paymentOptionTitle}>Scan QRIS Toko</Text>
+                <Text style={styles.paymentOptionDesc}>Bayar lewat aplikasi bank/e-wallet sebelum ambil.</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -164,15 +164,3 @@ export default function DetailScreen({ route, navigation }: any) {
     </SafeAreaView>
   );
 }
-
-const paymentStyles = StyleSheet.create({
-  overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'flex-end' },
-  modal: { backgroundColor: COLORS.white, borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 24, paddingBottom: 40 },
-  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
-  title: { fontSize: 20, fontWeight: 'bold', color: COLORS.text },
-  subtitle: { fontSize: 14, color: COLORS.textLight, marginBottom: 24, lineHeight: 20 },
-  option: { flexDirection: 'row', alignItems: 'center', padding: 16, backgroundColor: '#F8F9FA', borderRadius: 16, marginBottom: 12 },
-  iconBox: { width: 48, height: 48, borderRadius: 12, justifyContent: 'center', alignItems: 'center', marginRight: 16 },
-  optionTitle: { fontSize: 16, fontWeight: 'bold', color: COLORS.text },
-  optionDesc: { fontSize: 12, color: COLORS.textLight, marginTop: 2 }
-});

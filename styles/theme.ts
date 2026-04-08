@@ -1,16 +1,29 @@
 export const COLORS = {
-  primary: '#000000', // Hitam pekat sesuai referensi
-  secondary: '#F5F5F5', // Light gray untuk background
-  accent: '#FF4D4D', // Soft red untuk diskon/love
+  // Brand Colors (Stitch: The Ethereal Orchard)
+  primary: '#012D1D', // Deep Forest (High-end autoritas)
+  primaryContainer: '#1B4332',
+  onPrimary: '#FFFFFF',
+  
+  secondary: '#5E5E5B',
+  accent: '#FFB59F', // Sun-Kissed Orange (Appetite appeal)
+  
+  // Surfaces (Paint context)
+  background: '#F4FAFD', // Soft Cream Canvas
+  surface: '#FFFFFF',
+  surfaceVariant: '#E8EFF1',
+  
+  // Text Colors
+  text: '#161D1F', // Deep Charcoal
+  textLight: '#414844',
+  textLighter: '#717973',
+  
+  // Functional
+  success: '#2D6A4F',
+  error: '#BA1A1A',
+  border: '#C1C8C2',
   white: '#FFFFFF',
-  background: '#FFFFFF',
-  text: '#1A1A1A',
-  textLight: '#757575',
-  textLighter: '#BDBDBD',
-  border: '#EEEEEE',
-  success: '#00C853',
-  grayLight: '#F8F9FA',
-  grayMedium: '#E0E0E0',
+  grayLight: '#F1F3F4',
+  grayMedium: '#BDC1C6',
 };
 
 export const SPACING = {
@@ -19,28 +32,30 @@ export const SPACING = {
   m: 16,
   l: 24,
   xl: 32,
+  xxl: 48, // Whitespace adalah kemewahan
 };
 
 export const RADIUS = {
   s: 12,
-  m: 20,
-  l: 32, // Extra rounded sesuai referensi
+  m: 18,
+  l: 28, // Extra rounded (Material 3 style)
   full: 999,
 };
 
 export const SHADOWS = {
+  // Ambient Shadow (Tinted with forest green)
   light: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
+    shadowColor: '#012D1D',
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
     shadowRadius: 10,
     elevation: 2,
   },
   medium: {
-    shadowColor: '#000',
+    shadowColor: '#012D1D',
     shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.08,
-    shadowRadius: 15,
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
     elevation: 4,
   },
 };

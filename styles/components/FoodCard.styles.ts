@@ -1,39 +1,135 @@
-import { StyleSheet } from 'react-native';
-import { COLORS, RADIUS, SPACING } from '../theme';
+import { StyleSheet, Dimensions } from 'react-native';
+import { COLORS, RADIUS, SHADOWS, SPACING } from '../theme';
+
+const { width } = Dimensions.get('window');
+const CARD_WIDTH = (width - (SPACING.l * 2) - SPACING.m) / 2;
 
 export const styles = StyleSheet.create({
-  card: { backgroundColor: COLORS.white, borderRadius: RADIUS.l, marginBottom: SPACING.l, overflow: 'hidden', elevation: 3, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 10, flexDirection: 'row' },
-  imageContainer: {
-    position: 'relative',
-    width: 100,
-    height: 130,
+  // GRID CARD (Editorial Style)
+  card: {
+    backgroundColor: COLORS.white, // Pop against Soft Mist background
+    borderRadius: RADIUS.l,
+    width: CARD_WIDTH,
+    marginBottom: SPACING.l,
+    padding: 12,
+    ...SHADOWS.light,
+    // NO BORDERS as per Stitch Design System
   },
-  cardImage: { width: 100, height: 130 },
+  imageContainer: {
+    width: '100%',
+    height: CARD_WIDTH - 24,
+    borderRadius: RADIUS.m,
+    overflow: 'hidden',
+    backgroundColor: COLORS.surfaceVariant,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
   heartButton: {
     position: 'absolute',
-    top: 5,
-    right: 5,
-    padding: 6,
-    borderRadius: 20,
-    backgroundColor: 'rgba(0,0,0,0.1)',
+    top: 10,
+    right: 10,
+    backgroundColor: 'rgba(255,255,255,0.9)', // Solid semi-transparent white
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...SHADOWS.light,
   },
-  cardContent: { flex: 1, padding: SPACING.m },
-  cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  storeName: { color: COLORS.textLighter, fontSize: 12 },
-  ratingBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#FFF9E5', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 10 },
-  ratingText: { fontSize: 10, marginLeft: 3, fontWeight: 'bold' },
-  itemName: { fontSize: 16, fontWeight: 'bold', marginVertical: 4, color: COLORS.text },
-  infoRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
-  infoText: { fontSize: 12, color: COLORS.textLight, marginLeft: 5 },
-  priceRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' },
-  oldPrice: { textDecorationLine: 'line-through', color: COLORS.textLighter, fontSize: 12 },
-  newPrice: { color: COLORS.primary, fontSize: 18, fontWeight: 'bold' },
-  stockLabel: { backgroundColor: '#FFF5F5', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 10 },
-  stockText: { color: COLORS.primary, fontSize: 10, fontWeight: 'bold' },
+  badgeTopLeft: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    backgroundColor: COLORS.primary, // Deep Forest Green
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: RADIUS.s,
+  },
+  badgeText: {
+    color: COLORS.white,
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
+  },
+  content: {
+    marginTop: 16,
+    alignItems: 'flex-start', // Editorial: Left align
+    paddingHorizontal: 4,
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: COLORS.text,
+    lineHeight: 20,
+  },
+  label: {
+    fontSize: 11,
+    color: COLORS.textLighter,
+    marginTop: 6,
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
+  },
+  price: {
+    fontSize: 18,
+    fontWeight: '900',
+    color: COLORS.primary, // Focus with forest green
+    marginTop: 2,
+  },
 
-  // Tampilan Sold Out
-  cardDisabled: { opacity: 0.7 },
-  soldOutOverlay: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.45)', justifyContent: 'center', alignItems: 'center', zIndex: 10 },
-  soldOutStamp: { borderWidth: 3, borderColor: '#FF4444', borderRadius: 8, paddingHorizontal: 14, paddingVertical: 6, transform: [{ rotate: '-20deg' }] },
-  soldOutText: { color: '#FF4444', fontSize: 26, fontWeight: '900', letterSpacing: 4 },
+  // HORIZONTAL CARD (List Style)
+  hCard: {
+    flexDirection: 'row',
+    backgroundColor: COLORS.white,
+    borderRadius: RADIUS.l,
+    padding: 14,
+    marginBottom: SPACING.m,
+    marginHorizontal: SPACING.l,
+    ...SHADOWS.light,
+    alignItems: 'center',
+  },
+  hImage: {
+    width: 70,
+    height: 70,
+    borderRadius: RADIUS.m,
+    backgroundColor: COLORS.surfaceVariant,
+  },
+  hContent: {
+    flex: 1,
+    marginLeft: 18,
+  },
+  hStore: {
+    fontSize: 12,
+    color: COLORS.textLighter,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  hFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  hPrice: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: COLORS.primary,
+  },
+  ratingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.background,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: RADIUS.full,
+    gap: 4,
+  },
+  ratingText: {
+    fontSize: 11,
+    fontWeight: 'bold',
+    color: COLORS.text,
+  },
 });

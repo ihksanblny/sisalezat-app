@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, SPACING, RADIUS, SHADOWS } from '../theme';
+import { COLORS, SPACING, RADIUS, SHADOWS, TYPOGRAPHY } from '../theme';
 
 export const styles = StyleSheet.create({
   container: { 
@@ -11,9 +11,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center', 
     justifyContent: 'space-between', 
     paddingHorizontal: SPACING.l,
-    paddingTop: 20, // Sudah diturunkan lebih lega
+    paddingTop: 20, 
     paddingBottom: 20,
-    backgroundColor: COLORS.background
   },
   backButton: { 
     width: 48,
@@ -25,18 +24,15 @@ export const styles = StyleSheet.create({
     ...SHADOWS.light
   },
   title: { 
-    fontSize: 22, 
-    fontWeight: '900', 
+    ...TYPOGRAPHY.display,
+    fontSize: 24, 
     color: COLORS.primary,
-    letterSpacing: -0.5
   },
   brandSub: {
+    ...TYPOGRAPHY.label,
     fontSize: 10,
-    fontWeight: '700',
     color: COLORS.accent,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
-    marginTop: -2,
+    marginTop: -4,
   },
   list: { 
     paddingBottom: 100 
@@ -44,11 +40,6 @@ export const styles = StyleSheet.create({
   columnWrapper: {
     justifyContent: 'space-between',
     paddingHorizontal: SPACING.l,
-  },
-  center: { 
-    flex: 1, 
-    justifyContent: 'center', 
-    alignItems: 'center' 
   },
   empty: { 
     flex: 1, 
@@ -66,17 +57,17 @@ export const styles = StyleSheet.create({
     ...SHADOWS.medium
   },
   emptyTitle: { 
+    ...TYPOGRAPHY.display,
     fontSize: 24, 
-    fontWeight: '900', 
-    color: COLORS.primary, 
-    marginTop: 25 
+    marginTop: 25,
+    color: COLORS.primary,
   },
   emptySub: { 
+    ...TYPOGRAPHY.body,
     fontSize: 14, 
     color: COLORS.textLighter, 
     textAlign: 'center', 
     marginTop: 10,
-    lineHeight: 22
   },
   browseButton: { 
     marginTop: 35, 
@@ -87,10 +78,8 @@ export const styles = StyleSheet.create({
     ...SHADOWS.medium
   },
   browseText: { 
+    ...TYPOGRAPHY.label,
     color: COLORS.white, 
-    fontWeight: '900',
     fontSize: 12,
-    letterSpacing: 1,
-    textTransform: 'uppercase'
   }
 });

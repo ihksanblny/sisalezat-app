@@ -2,6 +2,20 @@ import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+// Font Loading
+import { 
+  useFonts, 
+  Manrope_400Regular, 
+  Manrope_700Bold, 
+  Manrope_800ExtraBold 
+} from '@expo-google-fonts/manrope';
+import { 
+  Inter_400Regular, 
+  Inter_600SemiBold, 
+  Inter_700Bold 
+} from '@expo-google-fonts/inter';
 
 // Import Screens
 import HomeScreen from './screens/HomeScreen';
@@ -21,14 +35,22 @@ import { COLORS } from './styles/theme';
 
 const Stack = createNativeStackNavigator();
 
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-
 export default function App() {
-  const { session, loading } = useAuth();
+  const { session, loading: authLoading } = useAuth();
 
-  if (loading) {
+  // Load Fonts
+  const [fontsLoaded] = useFonts({
+    'Manrope-Regular': Manrope_400Regular,
+    'Manrope-Bold': Manrope_700Bold,
+    'Manrope-ExtraBold': Manrope_800ExtraBold,
+    'Inter-Regular': Inter_400Regular,
+    'Inter-SemiBold': Inter_600SemiBold,
+    'Inter-Bold': Inter_700Bold,
+  });
+
+  if (authLoading || !fontsLoaded) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS.white }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS.background }}>
         <ActivityIndicator size="large" color={COLORS.primary} />
       </View>
     );

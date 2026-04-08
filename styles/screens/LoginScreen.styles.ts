@@ -1,28 +1,113 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, RADIUS, SPACING } from '../theme';
+import { COLORS, RADIUS, SPACING, SHADOWS, TYPOGRAPHY } from '../theme';
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.white, padding: SPACING.xl, justifyContent: 'center' },
-  headerArea: { marginBottom: 40 },
-  title: { fontSize: 32, fontWeight: 'bold', color: COLORS.text },
-  subtitle: { fontSize: 16, color: COLORS.textLight, marginTop: 10 },
-  inputArea: { marginBottom: 20 },
-  inputLabel: { fontSize: 14, fontWeight: 'bold', color: COLORS.text, marginBottom: 8, marginLeft: 5 },
-  input: { backgroundColor: COLORS.background, borderRadius: RADIUS.m, padding: 15, marginBottom: 15, borderWidth: 1, borderColor: COLORS.border },
-  mainButton: { backgroundColor: COLORS.primary, borderRadius: RADIUS.m, padding: 18, alignItems: 'center', marginTop: 10, elevation: 5, shadowColor: COLORS.primary, shadowOpacity: 0.3, shadowRadius: 10 },
-  buttonText: { color: COLORS.white, fontWeight: 'bold', fontSize: 16 },
-  
-  // Gaya Pemisah (Divider)
-  dividerContainer: { flexDirection: 'row', alignItems: 'center', marginVertical: 30 },
-  dividerLine: { flex: 1, height: 1, backgroundColor: COLORS.border },
-  dividerText: { marginHorizontal: 15, color: COLORS.textLight, fontSize: 12 },
-
-  // Gaya Tombol Google
-  googleButton: { flexDirection: 'row', backgroundColor: COLORS.white, borderRadius: RADIUS.m, padding: 16, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: COLORS.border },
-  googleButtonText: { color: COLORS.text, fontWeight: 'bold', fontSize: 16, marginLeft: 12 },
-  googleIcon: { width: 24, height: 24 },
-
-  toggleArea: { marginTop: 25, alignItems: 'center' },
-  toggleText: { color: COLORS.textLight, fontSize: 14 },
-  toggleLink: { color: COLORS.primary, fontWeight: 'bold' }
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+    paddingHorizontal: SPACING.l,
+    justifyContent: 'center',
+  },
+  headerArea: {
+    marginBottom: 50,
+  },
+  title: {
+    ...TYPOGRAPHY.display,
+    fontSize: 42, // Massive editorial header
+    color: COLORS.primary,
+    lineHeight: 48,
+  },
+  subtitle: {
+    ...TYPOGRAPHY.body,
+    fontSize: 16,
+    color: COLORS.textLighter,
+    marginTop: 12,
+  },
+  inputArea: {
+    marginBottom: 40,
+  },
+  inputLabel: {
+    ...TYPOGRAPHY.label,
+    fontSize: 10,
+    color: COLORS.textLighter,
+    marginBottom: 8,
+    marginLeft: 4,
+  },
+  input: {
+    backgroundColor: COLORS.white,
+    height: 60,
+    borderRadius: RADIUS.m,
+    paddingHorizontal: 20,
+    fontSize: 16,
+    color: COLORS.primary,
+    marginBottom: 20,
+    ...SHADOWS.light,
+    fontFamily: 'Inter-Regular',
+  },
+  mainButton: {
+    backgroundColor: COLORS.primary,
+    height: 64,
+    borderRadius: RADIUS.m,
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...SHADOWS.medium,
+    marginBottom: 20,
+  },
+  buttonText: {
+    ...TYPOGRAPHY.label,
+    color: COLORS.white,
+    fontSize: 14,
+  },
+  dividerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 25,
+    opacity: 0.5,
+  },
+  dividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: COLORS.border,
+  },
+  dividerText: {
+    ...TYPOGRAPHY.label,
+    fontSize: 10,
+    marginHorizontal: 15,
+    color: COLORS.textLighter,
+  },
+  googleButton: {
+    flexDirection: 'row',
+    backgroundColor: COLORS.white,
+    height: 60,
+    borderRadius: RADIUS.m,
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...SHADOWS.light,
+    borderWidth: 1,
+    borderColor: '#f0f0f0',
+  },
+  googleIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 12,
+  },
+  googleButtonText: {
+    ...TYPOGRAPHY.subheadline,
+    fontSize: 14,
+    color: COLORS.primary,
+  },
+  toggleArea: {
+    marginTop: 40,
+    alignItems: 'center',
+  },
+  toggleText: {
+    ...TYPOGRAPHY.body,
+    fontSize: 14,
+    color: COLORS.textLighter,
+  },
+  toggleLink: {
+    ...TYPOGRAPHY.subheadline,
+    color: COLORS.accent,
+    textDecorationLine: 'underline',
+  },
 });

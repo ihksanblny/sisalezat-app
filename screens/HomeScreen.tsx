@@ -4,7 +4,7 @@ import { ChevronRight, User, ShoppingBag } from 'lucide-react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { supabase } from '../lib/supabase/supabase';
 import { FoodCard } from '../components/Foodcard';
-import { COLORS, SPACING, RADIUS, SHADOWS } from '../styles/theme';
+import { COLORS, SPACING, RADIUS, SHADOWS, TYPOGRAPHY } from '../styles/theme';
 import { BottomNav } from '../components/BottomNav';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -171,18 +171,15 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
   },
   brandName: {
-    fontSize: 24,
-    fontWeight: '900',
+    ...TYPOGRAPHY.display,
+    fontSize: 28,
     color: COLORS.primary,
-    letterSpacing: -1,
   },
   brandSub: {
+    ...TYPOGRAPHY.label,
     fontSize: 10,
-    fontWeight: '700',
     color: COLORS.accent,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
-    marginTop: -2,
+    marginTop: -4,
   },
   avatarContainer: {
     width: 44,
@@ -214,7 +211,7 @@ const styles = StyleSheet.create({
   
   heroCard: { 
     marginHorizontal: SPACING.l, 
-    height: 240, 
+    height: 260, 
     borderRadius: RADIUS.l, 
     overflow: 'hidden',
     marginBottom: 30,
@@ -232,36 +229,33 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   heroSubtitle: {
+    ...TYPOGRAPHY.label,
     color: '#FFB59F',
     fontSize: 12,
-    fontWeight: '800',
-    textTransform: 'uppercase',
-    letterSpacing: 2,
     marginBottom: 8,
   },
   heroTitle: {
+    ...TYPOGRAPHY.display,
     color: COLORS.white,
-    fontSize: 32,
-    fontWeight: '900',
-    lineHeight: 36,
-    marginBottom: 16,
-    maxWidth: '80%',
+    fontSize: 34,
+    lineHeight: 38,
+    marginBottom: 20,
+    maxWidth: '85%',
   },
   heroCta: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.primary,
     alignSelf: 'flex-start',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
     borderRadius: RADIUS.m,
     gap: 8,
   },
   heroCtaText: {
+    ...TYPOGRAPHY.label,
     color: COLORS.white,
     fontSize: 11,
-    fontWeight: '900',
-    letterSpacing: 1,
   },
 
   filterSection: {
@@ -295,10 +289,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   sectionTitle: { 
+    ...TYPOGRAPHY.headline,
     fontSize: 22, 
-    fontWeight: '900', 
     color: COLORS.primary, 
-    letterSpacing: -0.5 
   },
   sectionSub: {
     fontSize: 12,

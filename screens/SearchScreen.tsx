@@ -4,7 +4,7 @@ import { Search, ChevronLeft, SlidersHorizontal, X } from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSearch } from '../hooks/useSearch';
 import { FoodCard } from '../components/Foodcard';
-import { COLORS, SPACING, RADIUS, SHADOWS } from '../styles/theme';
+import { COLORS, SPACING, RADIUS, SHADOWS, TYPOGRAPHY } from '../styles/theme';
 
 export default function SearchScreen({ navigation }: any) {
   const insets = useSafeAreaInsets();
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 15,
     color: COLORS.text,
-    fontWeight: '600',
+    fontFamily: 'Inter-SemiBold',
   },
   
   filterSection: { marginBottom: 25 },
@@ -158,8 +158,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
   },
   filterText: {
+    ...TYPOGRAPHY.subheadline,
     fontSize: 14,
-    fontWeight: '700',
     color: COLORS.textLight,
   },
   filterTextActive: {
@@ -171,11 +171,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   resultTitle: {
-    fontSize: 13,
-    fontWeight: '800',
+    ...TYPOGRAPHY.label,
+    fontSize: 12,
     color: COLORS.accent,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
   },
 
   columnWrapper: {
@@ -187,5 +185,10 @@ const styles = StyleSheet.create({
   },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   emptyState: { flex: 1, alignItems: 'center', marginTop: 80, paddingHorizontal: 40 },
-  emptyText: { color: COLORS.textLighter, fontSize: 16, textAlign: 'center', fontWeight: '500' },
+  emptyText: { 
+    ...TYPOGRAPHY.body,
+    fontSize: 16, 
+    color: COLORS.textLighter, 
+    textAlign: 'center',
+  },
 });

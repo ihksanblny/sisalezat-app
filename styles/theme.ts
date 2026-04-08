@@ -59,3 +59,34 @@ export const SHADOWS = {
     elevation: 4,
   },
 };
+
+export const TYPOGRAPHY = {
+  // Editorial Rules (Stitch: The Ethereal Orchard)
+  display: {
+    fontFamily: 'Manrope-ExtraBold',
+    fontWeight: '800' as const,
+    letterSpacing: -1.5,
+    lineHeight: 42,
+  },
+  headline: {
+    fontFamily: 'Manrope-Bold',
+    fontWeight: '700' as const,
+    letterSpacing: -0.8,
+  },
+  subheadline: {
+    fontFamily: 'Inter-SemiBold',
+    fontWeight: '600' as const,
+    letterSpacing: -0.2,
+  },
+  label: {
+    fontFamily: 'Inter-Bold',
+    fontWeight: '700' as const,
+    letterSpacing: 1.5,
+    textTransform: 'uppercase' as const,
+  },
+  body: {
+    fontFamily: 'Inter-Regular',
+    fontWeight: '400' as const,
+    lineHeight: 24,
+  }
+};

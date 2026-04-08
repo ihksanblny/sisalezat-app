@@ -1,63 +1,150 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, SPACING, RADIUS } from '../theme';
+import { COLORS, SPACING, RADIUS, SHADOWS, TYPOGRAPHY } from '../theme';
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F4F5F7' },
+  container: { 
+    flex: 1, 
+    backgroundColor: COLORS.background 
+  },
   header: { 
     flexDirection: 'row', 
     alignItems: 'center', 
     justifyContent: 'space-between', 
-    padding: SPACING.l, 
-    backgroundColor: COLORS.white, 
-    borderBottomWidth: 1, 
-    borderBottomColor: COLORS.border 
+    paddingHorizontal: SPACING.l,
+    paddingTop: 20,
+    paddingBottom: 25,
+    backgroundColor: COLORS.background,
   },
-  backButton: { padding: 8 },
-  title: { fontSize: 18, fontWeight: 'bold', color: COLORS.text },
-  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  empty: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 40 },
-  emptyTitle: { fontSize: 20, fontWeight: '700', color: COLORS.text, marginTop: 16 },
-  emptySub: { fontSize: 14, color: COLORS.textLight, textAlign: 'center', marginTop: 8 },
-  list: { padding: SPACING.l },
+  backButton: { 
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: COLORS.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...SHADOWS.light
+  },
+  title: { 
+    ...TYPOGRAPHY.display,
+    fontSize: 22, 
+    color: COLORS.primary 
+  },
+  center: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center' 
+  },
+  empty: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    padding: 60 
+  },
+  emptyTitle: { 
+    ...TYPOGRAPHY.display,
+    fontSize: 24, 
+    color: COLORS.primary, 
+    marginTop: 25 
+  },
+  emptySub: { 
+    ...TYPOGRAPHY.body,
+    fontSize: 14, 
+    color: COLORS.textLighter, 
+    textAlign: 'center', 
+    marginTop: 10 
+  },
+  list: { 
+    padding: SPACING.l,
+    paddingBottom: 100 
+  },
   card: { 
     backgroundColor: COLORS.white, 
-    borderRadius: RADIUS.m, 
-    padding: 15, 
-    marginBottom: 15, 
-    elevation: 2, 
-    shadowColor: '#000', 
-    shadowOpacity: 0.05, 
-    shadowRadius: 5 
+    borderRadius: RADIUS.l, 
+    padding: 20, 
+    marginBottom: 20, 
+    ...SHADOWS.light,
+    // NO-LINE RULE
   },
-  cardHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 12 },
-  avatar: { width: 40, height: 40, borderRadius: 20, backgroundColor: COLORS.grayLight },
-  buyerInfo: { flex: 1, marginLeft: 10 },
-  buyerName: { fontSize: 14, fontWeight: 'bold', color: COLORS.text },
-  orderDate: { fontSize: 10, color: COLORS.textLighter },
+  cardHeader: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    marginBottom: 15 
+  },
+  avatar: { 
+    width: 42, 
+    height: 42, 
+    borderRadius: 21, 
+    backgroundColor: COLORS.surfaceVariant,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buyerInfo: { 
+    flex: 1, 
+    marginLeft: 12 
+  },
+  buyerName: { 
+    ...TYPOGRAPHY.subheadline,
+    fontSize: 15, 
+    color: COLORS.primary 
+  },
+  orderDate: { 
+    ...TYPOGRAPHY.label,
+    fontSize: 9, 
+    color: COLORS.textLighter 
+  },
   itemRow: { 
     flexDirection: 'row', 
     alignItems: 'center', 
-    gap: 12, 
-    paddingVertical: 10, 
+    gap: 15, 
+    paddingVertical: 15, 
     borderTopWidth: 1, 
-    borderTopColor: '#F0F0F0' 
+    borderTopColor: 'rgba(0,0,0,0.03)' 
   },
-  itemImage: { width: 50, height: 50, borderRadius: RADIUS.s },
-  itemName: { fontSize: 14, fontWeight: '700', color: COLORS.text },
-  pickupTime: { fontSize: 12, color: COLORS.textLight },
-  statusTag: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: 4 },
-  statusText: { fontSize: 10, fontWeight: 'bold' },
-  statusTextSuccess: { backgroundColor: '#D1E7DD' },
-  statusTextPending: { backgroundColor: '#FFF3CD' },
+  itemImage: { 
+    width: 60, 
+    height: 60, 
+    borderRadius: RADIUS.m,
+    backgroundColor: COLORS.surfaceVariant
+  },
+  itemName: { 
+    ...TYPOGRAPHY.subheadline,
+    fontSize: 14, 
+    color: COLORS.primary 
+  },
+  pickupTime: { 
+    ...TYPOGRAPHY.body,
+    fontSize: 12, 
+    color: COLORS.textLighter 
+  },
+  statusTag: { 
+    paddingHorizontal: 8, 
+    paddingVertical: 4, 
+    borderRadius: 6 
+  },
+  statusText: { 
+    ...TYPOGRAPHY.label,
+    fontSize: 9, 
+  },
+  statusTextSuccess: { 
+    backgroundColor: '#c1ecd4', // primary_fixed
+  },
+  statusTextPending: { 
+    backgroundColor: '#ffdbd0', // tertiary_fixed
+  },
   completeButton: { 
     flexDirection: 'row', 
     alignItems: 'center', 
     justifyContent: 'center', 
     backgroundColor: COLORS.primary, 
-    borderRadius: RADIUS.s, 
-    padding: 10, 
-    marginTop: 10,
-    gap: 8
+    borderRadius: RADIUS.m, 
+    padding: 16, 
+    marginTop: 15,
+    gap: 10,
+    ...SHADOWS.light
   },
-  completeText: { color: COLORS.white, fontWeight: 'bold', fontSize: 14 }
+  completeText: { 
+    ...TYPOGRAPHY.label,
+    color: COLORS.white, 
+    fontSize: 12 
+  }
 });

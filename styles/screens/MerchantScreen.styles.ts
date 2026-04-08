@@ -1,26 +1,97 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, RADIUS, SPACING } from '../theme';
+import { COLORS, RADIUS, SPACING, SHADOWS, TYPOGRAPHY } from '../theme';
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.white },
-  scrollContainer: { padding: SPACING.l },
+  container: { 
+    flex: 1, 
+    backgroundColor: COLORS.background 
+  },
+  scrollContainer: { 
+    padding: SPACING.l,
+    paddingBottom: 60,
+  },
   
-  headerArea: { marginBottom: 30, marginTop: 10 },
-  title: { fontSize: 28, fontWeight: 'bold', color: COLORS.text },
-  subtitle: { fontSize: 14, color: COLORS.textLight, marginTop: 5 },
+  headerArea: { 
+    marginBottom: 40, 
+    marginTop: 10 
+  },
+  title: { 
+    ...TYPOGRAPHY.display,
+    fontSize: 32, 
+    color: COLORS.primary 
+  },
+  subtitle: { 
+    ...TYPOGRAPHY.body,
+    fontSize: 14, 
+    color: COLORS.textLighter, 
+    marginTop: 8 
+  },
 
-  imagePicker: { width: '100%', height: 200, backgroundColor: COLORS.background, borderRadius: RADIUS.m, borderStyle: 'dashed', borderWidth: 2, borderColor: COLORS.border, justifyContent: 'center', alignItems: 'center', marginBottom: 25, overflow: 'hidden' },
-  pickedImage: { width: '100%', height: '100%' },
-  imagePickerText: { color: COLORS.textLight, marginTop: 10 },
+  imagePicker: { 
+    width: '100%', 
+    height: 220, 
+    backgroundColor: COLORS.white, 
+    borderRadius: RADIUS.l, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    marginBottom: 30, 
+    overflow: 'hidden',
+    ...SHADOWS.light,
+  },
+  pickedImage: { 
+    width: '100%', 
+    height: '100%',
+    resizeMode: 'cover'
+  },
+  imagePickerText: { 
+    ...TYPOGRAPHY.label,
+    fontSize: 10,
+    color: COLORS.textLighter, 
+    marginTop: 12 
+  },
 
-  inputGroup: { marginBottom: 20 },
-  label: { fontSize: 14, fontWeight: 'bold', color: COLORS.text, marginBottom: 8 },
-  input: { backgroundColor: COLORS.background, borderRadius: RADIUS.m, padding: 15, borderWidth: 1, borderColor: COLORS.border },
+  inputGroup: { 
+    marginBottom: 25 
+  },
+  label: { 
+    ...TYPOGRAPHY.label,
+    fontSize: 11,
+    color: COLORS.primary, 
+    marginBottom: 10,
+    marginLeft: 4,
+  },
+  input: { 
+    backgroundColor: COLORS.white, 
+    borderRadius: RADIUS.m, 
+    padding: 16, 
+    fontSize: 15,
+    color: COLORS.primary,
+    fontFamily: 'Inter-Regular',
+    ...SHADOWS.light,
+  },
   
-  rowInputs: { flexDirection: 'row', justifyContent: 'space-between' },
-  halfInput: { width: '48%' },
+  rowInputs: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between' 
+  },
+  halfInput: { 
+    width: '48%' 
+  },
 
-  submitButton: { backgroundColor: COLORS.primary, borderRadius: RADIUS.m, paddingVertical: 18, alignItems: 'center', marginTop: 20, elevation: 5, shadowColor: COLORS.primary, shadowOpacity: 0.3, shadowRadius: 10 },
-  disabledButton: { backgroundColor: COLORS.grayMedium },
-  submitButtonText: { color: COLORS.white, fontWeight: 'bold', fontSize: 16 }
+  submitButton: { 
+    backgroundColor: COLORS.primary, 
+    borderRadius: RADIUS.m, 
+    paddingVertical: 20, 
+    alignItems: 'center', 
+    marginTop: 30, 
+    ...SHADOWS.medium 
+  },
+  disabledButton: { 
+    backgroundColor: COLORS.grayMedium 
+  },
+  submitButtonText: { 
+    ...TYPOGRAPHY.label,
+    color: COLORS.white, 
+    fontSize: 14,
+  }
 });

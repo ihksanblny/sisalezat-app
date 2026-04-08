@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, FlatList, SafeAreaView, ActivityIndicator, StyleSheet, TouchableOpacity, Image, Modal } from 'react-native';
+import { View, Text, FlatList, SafeAreaView, ActivityIndicator, TouchableOpacity, Image, Modal } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { ChevronLeft, Ticket, CheckCircle, Clock, XCircle, QrCode, X } from 'lucide-react-native';
 import { getMyClaims } from '../lib/services/claim';
 import { getProfile } from '../lib/services/profile';
-import { COLORS, SPACING, RADIUS } from '../styles/theme';
+import { styles } from '../styles/screens/HistoryScreen.styles';
+import { COLORS } from '../styles/theme';
 
 export default function HistoryScreen({ navigation }: any) {
   const [claims, setClaims] = useState<any[]>([]);
@@ -35,8 +36,8 @@ export default function HistoryScreen({ navigation }: any) {
     
     return (
       <View style={[styles.badge, isCompleted ? styles.badgeSuccess : isPending ? styles.badgePending : styles.badgeDanger]}>
-        {isCompleted ? <CheckCircle size={12} color="#2D6A4F" /> : isPending ? <Clock size={12} color="#856404" /> : <XCircle size={12} color="#721C24" />}
-        <Text style={[styles.badgeText, isCompleted ? {color: '#2D6A4F'} : isPending ? {color: '#856404'} : {color: '#721C24'}]}>
+        {isCompleted ? <CheckCircle size={11} color="#1b4332" /> : isPending ? <Clock size={11} color="#4c1000" /> : <XCircle size={11} color="#601410" />}
+        <Text style={[styles.badgeText, isCompleted ? {color: '#1b4332'} : isPending ? {color: '#4c1000'} : {color: '#601410'}]}>
           {status === 'pending' ? 'Perlu Diambil' : status === 'completed' ? 'Selesai' : 'Dibatalkan'}
         </Text>
       </View>
@@ -47,19 +48,19 @@ export default function HistoryScreen({ navigation }: any) {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <ChevronLeft color={COLORS.text} />
+          <ChevronLeft color={COLORS.primary} size={24} />
         </TouchableOpacity>
         <Text style={styles.title}>Riwayat Klaim</Text>
-        <View style={{ width: 40 }} />
+        <View style={{ width: 44 }} />
       </View>
 
       {loading ? (
         <View style={styles.center}><ActivityIndicator size="large" color={COLORS.primary} /></View>
       ) : claims.length === 0 ? (
         <View style={styles.empty}>
-          <Ticket size={64} color={COLORS.grayMedium} />
+          <Ticket size={64} color={COLORS.accent} />
           <Text style={styles.emptyTitle}>Belum ada klaim</Text>
-          <Text style={styles.emptySub}>Makanan yang Anda simpan akan muncul di sini.</Text>
+          <Text style={styles.emptySub}>Makanan yang Anda selamatkan akan muncul secara artistik di sini.</Text>
         </View>
       ) : (
         <FlatList
@@ -82,7 +83,7 @@ export default function HistoryScreen({ navigation }: any) {
                       onPress={() => setSelectedQris(item.qris_url)}
                       style={styles.qrisMiniButton}
                     >
-                      <QrCode size={14} color={COLORS.primary} />
+                      <QrCode size={12} color={COLORS.white} />
                       <Text style={styles.qrisMiniText}>Bayar QRIS</Text>
                     </TouchableOpacity>
                   )}
@@ -110,49 +111,14 @@ export default function HistoryScreen({ navigation }: any) {
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Scan QRIS Toko</Text>
               <TouchableOpacity onPress={() => setSelectedQris(null)}>
-                <X size={24} color={COLORS.text} />
+                <X size={24} color={COLORS.primary} />
               </TouchableOpacity>
             </View>
             {selectedQris && <Image source={{ uri: selectedQris }} style={styles.qrisImage} resizeMode="contain" />}
-            <Text style={styles.qrisHint}>Silakan scan kode di atas untuk melakukan pembayaran melalui aplikasi bank atau e-wallet!</Text>
+            <Text style={styles.qrisHint}>Silakan scan kode di atas melalui aplikasi bank favorit Anda!</Text>
           </View>
         </View>
       </Modal>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.white },
-  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: SPACING.l, borderBottomWidth: 1, borderBottomColor: COLORS.border },
-  backButton: { padding: 8 },
-  title: { fontSize: 18, fontWeight: 'bold', color: COLORS.text },
-  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  empty: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 40 },
-  emptyTitle: { fontSize: 20, fontWeight: '700', color: COLORS.text, marginTop: 16 },
-  emptySub: { fontSize: 14, color: COLORS.textLight, textAlign: 'center', marginTop: 8 },
-  list: { padding: SPACING.l },
-  claimCard: { flexDirection: 'row', backgroundColor: '#F8F9FA', borderRadius: RADIUS.m, padding: 12, marginBottom: 15, alignItems: 'center' },
-  itemImage: { width: 70, height: 70, borderRadius: RADIUS.s, backgroundColor: COLORS.grayLight },
-  cardInfo: { flex: 1, marginLeft: 12, gap: 4 },
-  itemName: { fontSize: 16, fontWeight: 'bold', color: COLORS.text },
-  storeName: { fontSize: 12, color: COLORS.textLight },
-  timeRow: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  timeText: { fontSize: 12, color: COLORS.textLighter },
-  priceCol: { alignItems: 'flex-end', marginLeft: 8 },
-  price: { fontSize: 14, fontWeight: 'bold', color: COLORS.primary },
-  date: { fontSize: 10, color: COLORS.textLighter, marginTop: 4 },
-  badge: { flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-start', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 12, gap: 4, marginTop: 4 },
-  badgeSuccess: { backgroundColor: '#D1E7DD' },
-  badgePending: { backgroundColor: '#FFF3CD' },
-  badgeDanger: { backgroundColor: '#F8D7DA' },
-  badgeText: { fontSize: 10, fontWeight: 'bold' },
-  qrisMiniButton: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 4, paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6, borderWidth: 1, borderColor: COLORS.primary },
-  qrisMiniText: { fontSize: 10, color: COLORS.primary, fontWeight: '700' },
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.7)', justifyContent: 'center', alignItems: 'center', padding: 20 },
-  modalContent: { backgroundColor: COLORS.white, borderRadius: RADIUS.l, padding: 20, width: '100%', alignItems: 'center' },
-  modalHeader: { flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: 20 },
-  modalTitle: { fontSize: 18, fontWeight: 'bold' },
-  qrisImage: { width: 280, height: 350, backgroundColor: '#FFF' },
-  qrisHint: { fontSize: 12, color: COLORS.textLight, textAlign: 'center', marginTop: 15, lineHeight: 18 }
-});

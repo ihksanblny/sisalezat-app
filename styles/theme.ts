@@ -24,6 +24,8 @@ export const COLORS = {
   white: '#FFFFFF',
   grayLight: '#F1F3F4',
   grayMedium: '#BDC1C6',
+  outlineVariant: 'rgba(193, 200, 194, 0.15)', // Ghost Border
+  surfaceContainer: '#E8EFF1',
 };
 
 export const SPACING = {

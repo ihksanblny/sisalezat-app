@@ -4,37 +4,39 @@ import { Search, ChevronLeft, SlidersHorizontal, X } from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSearch } from '../hooks/useSearch';
 import { FoodCard } from '../components/Foodcard';
-import { COLORS, SPACING, RADIUS, SHADOWS, TYPOGRAPHY } from '../styles/theme';
+import { COLORS } from '../styles/theme';
+import { styles } from '../styles/screens/SearchScreen.styles';
 
 export default function SearchScreen({ navigation }: any) {
   const insets = useSafeAreaInsets();
-  const { 
-    query, setQuery, 
+  const {
+    query, setQuery,
     results, loading,
     activeFilter, setActiveFilter,
-    filters 
+    filters
   } = useSearch();
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       {/* HEADER & SEARCH BAR */}
       <View style={styles.header}>
-        <TouchableOpacity 
-          style={styles.backButton} 
+        <TouchableOpacity
+          style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <ChevronLeft color={COLORS.text} size={24} />
+          <ChevronLeft color={COLORS.primary} size={24} />
         </TouchableOpacity>
-        
+
         <View style={styles.searchContainer}>
           <Search size={18} color={COLORS.textLighter} style={styles.searchIcon} />
           <TextInput
             style={styles.searchInput}
-            placeholder="Cari makanan atau restomu..."
+            placeholder="Cari makanan lezat..."
             placeholderTextColor={COLORS.textLighter}
             value={query}
             onChangeText={setQuery}
             autoFocus
+            multiline={false}
           />
           {query.length > 0 && (
             <TouchableOpacity onPress={() => setQuery('')}>
@@ -73,9 +75,9 @@ export default function SearchScreen({ navigation }: any) {
 
       {/* SEARCH RESULTS */}
       <View style={styles.resultHeader}>
-         <Text style={styles.resultTitle}>
-           {loading ? 'Mencari...' : `${results.length} makanan ditemukan`}
-         </Text>
+        <Text style={styles.resultTitle}>
+          {loading ? 'Mencari...' : `${results.length} makanan ditemukan`}
+        </Text>
       </View>
 
       {loading ? (
@@ -88,9 +90,9 @@ export default function SearchScreen({ navigation }: any) {
           numColumns={2}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <FoodCard 
-              item={item} 
-              onPress={() => navigation.navigate('Detail', { item })} 
+            <FoodCard
+              item={item}
+              onPress={() => navigation.navigate('Detail', { item })}
             />
           )}
           columnWrapperStyle={styles.columnWrapper}
@@ -106,89 +108,3 @@ export default function SearchScreen({ navigation }: any) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
-  header: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    paddingHorizontal: SPACING.l, 
-    paddingTop: 10, // Tambahan agar tidak mepet
-    paddingBottom: 25,
-    gap: 12
-  },
-  backButton: {
-    width: 48,
-    height: 48,
-    borderRadius: RADIUS.m,
-    backgroundColor: COLORS.white,
-    justifyContent: 'center',
-    alignItems: 'center',
-    ...SHADOWS.light,
-  },
-  searchContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: COLORS.white,
-    borderRadius: RADIUS.m,
-    paddingHorizontal: 16,
-    height: 52,
-    ...SHADOWS.light,
-  },
-  searchIcon: { marginRight: 12 },
-  searchInput: {
-    flex: 1,
-    fontSize: 15,
-    color: COLORS.text,
-    fontFamily: 'Inter-SemiBold',
-  },
-  
-  filterSection: { marginBottom: 25 },
-  filterList: { paddingHorizontal: SPACING.l },
-  filterChip: {
-    paddingHorizontal: 22,
-    paddingVertical: 12,
-    borderRadius: RADIUS.full,
-    backgroundColor: COLORS.white,
-    marginRight: 10,
-    ...SHADOWS.light,
-  },
-  filterChipActive: {
-    backgroundColor: COLORS.primary,
-  },
-  filterText: {
-    ...TYPOGRAPHY.subheadline,
-    fontSize: 14,
-    color: COLORS.textLight,
-  },
-  filterTextActive: {
-    color: COLORS.white,
-  },
-
-  resultHeader: {
-    paddingHorizontal: SPACING.l,
-    marginBottom: 20,
-  },
-  resultTitle: {
-    ...TYPOGRAPHY.label,
-    fontSize: 12,
-    color: COLORS.accent,
-  },
-
-  columnWrapper: {
-    justifyContent: 'space-between',
-    paddingHorizontal: SPACING.l,
-  },
-  listContainer: {
-    paddingBottom: 50,
-  },
-  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  emptyState: { flex: 1, alignItems: 'center', marginTop: 80, paddingHorizontal: 40 },
-  emptyText: { 
-    ...TYPOGRAPHY.body,
-    fontSize: 16, 
-    color: COLORS.textLighter, 
-    textAlign: 'center',
-  },
-});

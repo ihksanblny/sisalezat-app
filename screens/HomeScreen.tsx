@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, StyleSheet, Image, ScrollView } from 'react-native';
-import { ChevronRight, User, ShoppingBag } from 'lucide-react-native';
+import { ChevronRight, User, ShoppingBag, Search } from 'lucide-react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { supabase } from '../lib/supabase/supabase';
 import { FoodCard } from '../components/Foodcard';
@@ -15,7 +15,10 @@ export default function HomeScreen({ navigation }: any) {
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const categories = ['All', 'Bakery', 'Meals', 'Snacks', 'Beverages'];
+  const dynamicCategories = useMemo(() => {
+    const uniqueCats = Array.from(new Set(allItems.map(item => item.category).filter(Boolean)));
+    return ['All', ...uniqueCats];
+  }, [allItems]);
 
   const fetchItems = useCallback(async () => {
     try {
@@ -61,13 +64,11 @@ export default function HomeScreen({ navigation }: any) {
     if (category === 'All') {
       setItems(allItems);
     } else {
-      const filtered = allItems.filter(item => 
-        item.name.toLowerCase().includes(category.toLowerCase()) || 
-        item.description?.toLowerCase().includes(category.toLowerCase())
-      );
+      const filtered = allItems.filter(item => item.category === category);
       setItems(filtered);
     }
   };
+
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
@@ -79,9 +80,6 @@ export default function HomeScreen({ navigation }: any) {
         <TouchableOpacity style={styles.avatarContainer} onPress={() => navigation.navigate('Profile')}>
           <View style={styles.avatarPlaceholder}>
              <User size={20} color={COLORS.primary} />
-          </View>
-          <View style={styles.notifDot}>
-              <Text style={styles.notifText}>2</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -98,6 +96,16 @@ export default function HomeScreen({ navigation }: any) {
         )}
         ListHeaderComponent={
           <>
+            <View style={styles.searchBarContainer}>
+               <TouchableOpacity 
+                 style={styles.searchBar} 
+                 onPress={() => navigation.navigate('Search')}
+               >
+                 <Search size={20} color={COLORS.textLighter} />
+                 <Text style={styles.searchPlaceholder}>Search surplus food...</Text>
+               </TouchableOpacity>
+            </View>
+
             <View style={styles.heroCard}>
                <Image 
                  source={{ uri: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=1000&auto=format&fit=crop' }} 
@@ -115,7 +123,7 @@ export default function HomeScreen({ navigation }: any) {
 
             <View style={styles.filterSection}>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filterScroll}>
-                {categories.map(cat => (
+                {dynamicCategories.map((cat: string) => (
                   <TouchableOpacity 
                     key={cat}
                     style={[styles.filterPill, activeCategory === cat && styles.filterPillActive]}
@@ -194,21 +202,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...SHADOWS.light,
   },
-  notifDot: { 
-    position: 'absolute', 
-    top: -2, 
-    right: -2, 
-    width: 20, 
-    height: 20, 
-    borderRadius: 10, 
-    backgroundColor: '#FF7043', 
-    justifyContent: 'center', 
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: COLORS.white,
-  },
-  notifText: { fontSize: 9, color: COLORS.white, fontWeight: '900' },
   
+  searchBarContainer: {
+    paddingHorizontal: SPACING.l,
+    marginVertical: 20,
+  },
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.surfaceContainer,
+    height: 56,
+    borderRadius: RADIUS.l,
+    paddingHorizontal: 20,
+    borderWidth: 1,
+    borderColor: COLORS.outlineVariant,
+  },
+  searchPlaceholder: {
+    ...TYPOGRAPHY.body,
+    color: COLORS.textLighter,
+    marginLeft: 12,
+    fontSize: 15,
+  },
   heroCard: { 
     marginHorizontal: SPACING.l, 
     height: 260, 
@@ -259,29 +273,30 @@ const styles = StyleSheet.create({
   },
 
   filterSection: {
-    marginBottom: 30,
+    marginBottom: 35,
   },
   filterScroll: {
     paddingHorizontal: SPACING.l,
-    gap: 10,
+    gap: 12,
   },
   filterPill: {
     paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: RADIUS.full,
-    backgroundColor: COLORS.white,
-    ...SHADOWS.light,
+    paddingVertical: 12,
+    borderRadius: RADIUS.m, // Slightly less rounded for editorial feel
+    backgroundColor: COLORS.surfaceVariant, // Tonal instead of shadow
   },
   filterPillActive: {
     backgroundColor: COLORS.primary,
+    ...SHADOWS.light, // Only active pill gets a very subtle lift
   },
   filterText: {
+    ...TYPOGRAPHY.subheadline,
     fontSize: 14,
-    fontWeight: '700',
-    color: COLORS.text,
+    color: COLORS.textLight,
   },
   filterTextActive: {
     color: COLORS.white,
+    fontFamily: 'Inter-Bold',
   },
 
   sectionHeader: { 

@@ -11,16 +11,18 @@ export const styles = StyleSheet.create({
     alignItems: 'center', 
     justifyContent: 'space-between', 
     paddingHorizontal: SPACING.l,
-    paddingTop: 20, 
-    paddingBottom: 20,
+    paddingTop: SPACING.m, 
+    paddingBottom: 25,
   },
   backButton: { 
-    width: 48,
-    height: 48,
+    width: 52,
+    height: 52,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.white,
-    borderRadius: RADIUS.m,
+    borderRadius: RADIUS.l,
+    borderWidth: 1,
+    borderColor: COLORS.outlineVariant,
     ...SHADOWS.light
   },
   title: { 
@@ -81,5 +83,10 @@ export const styles = StyleSheet.create({
     ...TYPOGRAPHY.label,
     color: COLORS.white, 
     fontSize: 12,
-  }
+  },
+  center: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center' 
+  },
 });

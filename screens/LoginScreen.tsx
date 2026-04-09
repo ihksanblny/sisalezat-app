@@ -43,8 +43,8 @@ export default function LoginScreen() {
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
       <View style={styles.headerArea}>
-        <Text style={styles.title}>{isLogin ? 'Selamat Datang' : 'Buat Akun'}</Text>
-        <Text style={styles.subtitle}>Selamatkan makanan lezat mulai hari ini 🍲</Text>
+        <Text style={styles.title}>Sisa Lezat</Text>
+        <Text style={styles.subtitle}>Curating a sustainable lifestyle, one meal at a time. 🌿</Text>
       </View>
 
       <View style={styles.inputArea}>

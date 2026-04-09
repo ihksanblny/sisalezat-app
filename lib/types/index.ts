@@ -8,6 +8,7 @@ export interface FoodItem {
   pickup_time: string;
   image_url: string;
   created_at: string;
+  category: string;
   user_id?: string;
   sold_at?: string | null;
   avg_rating?: number;

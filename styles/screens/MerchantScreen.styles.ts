@@ -15,6 +15,18 @@ export const styles = StyleSheet.create({
     marginBottom: 40, 
     marginTop: 10 
   },
+  backButton: {
+    width: 52,
+    height: 52,
+    borderRadius: RADIUS.l,
+    backgroundColor: COLORS.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...SHADOWS.light,
+    borderWidth: 1,
+    borderColor: COLORS.outlineVariant,
+    marginBottom: 20,
+  },
   title: { 
     ...TYPOGRAPHY.display,
     fontSize: 32, 
@@ -93,5 +105,39 @@ export const styles = StyleSheet.create({
     ...TYPOGRAPHY.label,
     color: COLORS.white, 
     fontSize: 14,
-  }
+  },
+
+  checkboxContainer: {
+    paddingVertical: 5,
+  },
+  checkboxItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(0,0,0,0.05)',
+  },
+  checkboxBase: {
+    width: 22,
+    height: 22,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: COLORS.outlineVariant,
+    marginRight: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  checkboxChecked: {
+    backgroundColor: COLORS.primary,
+    borderColor: COLORS.primary,
+  },
+  checkboxLabel: {
+    ...TYPOGRAPHY.body,
+    fontSize: 15,
+    color: COLORS.textLight,
+  },
+  checkboxLabelActive: {
+    color: COLORS.primary,
+    fontFamily: 'Inter-Bold',
+  },
 });

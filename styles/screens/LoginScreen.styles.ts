@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.background,
-    paddingHorizontal: SPACING.l,
+    paddingHorizontal: SPACING.xl, // More whitespace
     justifyContent: 'center',
   },
   headerArea: {
@@ -13,9 +13,10 @@ export const styles = StyleSheet.create({
   },
   title: {
     ...TYPOGRAPHY.display,
-    fontSize: 42, // Massive editorial header
+    fontSize: 52, // Even more massive
     color: COLORS.primary,
-    lineHeight: 48,
+    lineHeight: 56,
+    marginBottom: 4,
   },
   subtitle: {
     ...TYPOGRAPHY.body,
@@ -34,24 +35,25 @@ export const styles = StyleSheet.create({
     marginLeft: 4,
   },
   input: {
-    backgroundColor: COLORS.white,
-    height: 60,
+    backgroundColor: COLORS.surfaceContainer, // Tonal layering
+    height: 64,
     borderRadius: RADIUS.m,
-    paddingHorizontal: 20,
+    paddingHorizontal: 24,
     fontSize: 16,
     color: COLORS.primary,
     marginBottom: 20,
-    ...SHADOWS.light,
+    borderWidth: 1,
+    borderColor: COLORS.outlineVariant, // Ghost border
     fontFamily: 'Inter-Regular',
   },
   mainButton: {
-    backgroundColor: COLORS.primary,
-    height: 64,
-    borderRadius: RADIUS.m,
+    backgroundColor: COLORS.primaryContainer, // Rich tonal background
+    height: 68,
+    borderRadius: RADIUS.l, // More rounded as per theme
     justifyContent: 'center',
     alignItems: 'center',
     ...SHADOWS.medium,
-    marginBottom: 20,
+    marginBottom: 24,
   },
   buttonText: {
     ...TYPOGRAPHY.label,
@@ -78,13 +80,13 @@ export const styles = StyleSheet.create({
   googleButton: {
     flexDirection: 'row',
     backgroundColor: COLORS.white,
-    height: 60,
-    borderRadius: RADIUS.m,
+    height: 64,
+    borderRadius: RADIUS.l,
     justifyContent: 'center',
     alignItems: 'center',
     ...SHADOWS.light,
     borderWidth: 1,
-    borderColor: '#f0f0f0',
+    borderColor: COLORS.outlineVariant,
   },
   googleIcon: {
     width: 20,

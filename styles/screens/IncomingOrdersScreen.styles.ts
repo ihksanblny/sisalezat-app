@@ -11,8 +11,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center', 
     justifyContent: 'space-between', 
     paddingHorizontal: SPACING.l,
-    paddingTop: 20,
-    paddingBottom: 25,
+    paddingTop: SPACING.xxl,
+    paddingBottom: SPACING.xs,
     backgroundColor: COLORS.background,
   },
   backButton: { 

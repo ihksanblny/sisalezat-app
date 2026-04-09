@@ -2,12 +2,14 @@ import React, { useState, useCallback } from 'react';
 import { View, Text, FlatList, SafeAreaView, ActivityIndicator, TouchableOpacity, Image, Modal } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { ChevronLeft, Ticket, CheckCircle, Clock, XCircle, QrCode, X } from 'lucide-react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getMyClaims } from '../lib/services/claim';
 import { getProfile } from '../lib/services/profile';
 import { styles } from '../styles/screens/HistoryScreen.styles';
 import { COLORS } from '../styles/theme';
 
 export default function HistoryScreen({ navigation }: any) {
+  const insets = useSafeAreaInsets();
   const [claims, setClaims] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedQris, setSelectedQris] = useState<string | null>(null);
@@ -15,7 +17,6 @@ export default function HistoryScreen({ navigation }: any) {
   const fetchClaims = useCallback(async () => {
     try {
       const data = await getMyClaims();
-      // Ambil profile seller untuk tiap claim agar dapat qris_url
       const claimsWithQris = await Promise.all(data.map(async (c: any) => {
         const profile = await getProfile(c.seller_id);
         return { ...c, qris_url: profile?.qris_url };
@@ -45,13 +46,12 @@ export default function HistoryScreen({ navigation }: any) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
           <ChevronLeft color={COLORS.primary} size={24} />
         </TouchableOpacity>
         <Text style={styles.title}>Riwayat Klaim</Text>
-        <View style={{ width: 44 }} />
       </View>
 
       {loading ? (
@@ -119,6 +119,6 @@ export default function HistoryScreen({ navigation }: any) {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 }

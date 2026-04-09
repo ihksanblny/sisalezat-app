@@ -1,98 +1,99 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, RADIUS, SPACING } from '../theme';
+import { COLORS, RADIUS, SPACING, SHADOWS, TYPOGRAPHY } from '../theme';
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.white },
-
-  // Search bar atas
-  topBar: {
-    paddingHorizontal: SPACING.l,
-    paddingTop: SPACING.m,
-    paddingBottom: SPACING.m,
-    backgroundColor: COLORS.white,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
+  container: { flex: 1, backgroundColor: COLORS.background },
+  header: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    paddingHorizontal: SPACING.l, 
+    paddingTop: SPACING.m, // Added breathing room here
+    paddingBottom: 20,
+    gap: 12
   },
-  searchRow: {
+  backButton: {
+    width: 56,
+    height: 56,
+    borderRadius: RADIUS.l,
+    backgroundColor: COLORS.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...SHADOWS.light,
+    borderWidth: 1,
+    borderColor: COLORS.outlineVariant,
+  },
+  searchContainer: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.background,
+    backgroundColor: COLORS.surfaceContainer,
+    borderRadius: RADIUS.l,
+    paddingLeft: 16,
+    paddingRight: 8,
+    height: 56,
+    borderWidth: 1,
+    borderColor: COLORS.outlineVariant,
+  },
+  searchIcon: { marginRight: 12 },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    color: COLORS.primary,
+    fontFamily: 'Inter-Regular',
+    paddingVertical: 0, 
+    textAlignVertical: 'center',
+    includeFontPadding: false, // Android specific style
+  },
+  
+  filterSection: { marginBottom: 25 },
+  filterList: { paddingHorizontal: SPACING.l },
+  filterChip: {
+    paddingHorizontal: 22,
+    paddingVertical: 12,
     borderRadius: RADIUS.m,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    gap: 10,
+    backgroundColor: COLORS.surfaceContainer,
+    marginRight: 10,
+    borderWidth: 1,
+    borderColor: COLORS.outlineVariant,
   },
-  searchInput: { flex: 1, fontSize: 15, color: COLORS.text },
-
-  // Filter chips — FIX: height terkontrol
-  filtersContainer: {
-    paddingVertical: 12,
-    paddingLeft: SPACING.l,
-  },
-  chip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    height: 36,                  // 🔑 fixed height
-    paddingHorizontal: 14,
-    borderRadius: 18,
-    borderWidth: 1.5,
-    borderColor: COLORS.border,
-    marginRight: 8,
-    backgroundColor: COLORS.white,
-    alignSelf: 'flex-start',     // 🔑 jangan stretch
-  },
-  chipActive: {
+  filterChipActive: {
     backgroundColor: COLORS.primary,
     borderColor: COLORS.primary,
+    ...SHADOWS.light,
   },
-  chipText: { fontSize: 13, color: COLORS.text, fontWeight: '500' },
-  chipTextActive: { color: COLORS.white, fontWeight: '700' },
-
-  // Riwayat pencarian
-  recentSection: { paddingHorizontal: SPACING.l, paddingTop: SPACING.m },
-  sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  sectionTitle: { fontSize: 15, fontWeight: '700', color: COLORS.text },
-  clearText: { fontSize: 13, color: COLORS.primary },
-  recentItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-    paddingVertical: 13,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
-  },
-  recentText: { fontSize: 15, color: COLORS.text },
-
-  // Hasil pencarian
-  resultList: { paddingHorizontal: SPACING.l, paddingTop: 8, paddingBottom: 100 },
-  resultCount: {
-    fontSize: 13,
-    color: COLORS.textLight,
-    marginBottom: 10,
-    fontWeight: '500',
-  },
-
-  // State kosong & placeholder
-  centerBox: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 40,
-    paddingBottom: 80,
-  },
-  emoji: { fontSize: 60, marginBottom: 14 },
-  title: { fontSize: 18, fontWeight: '700', color: COLORS.text, textAlign: 'center' },
-  subtitle: {
+  filterText: {
+    ...TYPOGRAPHY.subheadline,
     fontSize: 14,
     color: COLORS.textLight,
-    marginTop: 8,
+  },
+  filterTextActive: {
+    color: COLORS.white,
+    fontFamily: 'Inter-Bold',
+  },
+
+  resultHeader: {
+    paddingHorizontal: SPACING.l,
+    marginBottom: 20,
+  },
+  resultTitle: {
+    ...TYPOGRAPHY.label,
+    fontSize: 12,
+    color: COLORS.accent,
+  },
+
+  columnWrapper: {
+    justifyContent: 'space-between',
+    paddingHorizontal: SPACING.l,
+  },
+  listContainer: {
+    paddingBottom: 50,
+  },
+  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  emptyState: { flex: 1, alignItems: 'center', marginTop: 80, paddingHorizontal: 40 },
+  emptyText: { 
+    ...TYPOGRAPHY.body,
+    fontSize: 16, 
+    color: COLORS.textLighter, 
     textAlign: 'center',
-    lineHeight: 22,
   },
 });

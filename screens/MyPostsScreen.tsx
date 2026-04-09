@@ -4,9 +4,11 @@ import { ChevronLeft, Trash2, Package } from 'lucide-react-native';
 import { getMyFoodItems, deleteFoodItem } from '../lib/services/food';
 import { FoodItem } from '../lib/types';
 import { COLORS } from '../styles/theme';
-import { StyleSheet } from 'react-native';
+import { styles } from '../styles/screens/MyPostsScreen.styles';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function MyPostsScreen({ navigation }: any) {
+  const insets = useSafeAreaInsets();
   const [items, setItems] = useState<FoodItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -68,21 +70,20 @@ export default function MyPostsScreen({ navigation }: any) {
       >
         {deletingId === item.id
           ? <ActivityIndicator color={COLORS.primary} size="small" />
-          : <Trash2 color={COLORS.primary} size={22} />
+          : <Trash2 color={COLORS.primary} size={20} />
         }
       </TouchableOpacity>
     </View>
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <ChevronLeft color={COLORS.text} size={28} />
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <ChevronLeft color={COLORS.primary} size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Postingan Saya</Text>
-        <View style={{ width: 28 }} />
       </View>
 
       {loading ? (
@@ -104,26 +105,7 @@ export default function MyPostsScreen({ navigation }: any) {
           showsVerticalScrollIndicator={false}
         />
       )}
-    </SafeAreaView>
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.white },
-  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 20, borderBottomWidth: 1, borderBottomColor: COLORS.border },
-  headerTitle: { fontSize: 18, fontWeight: 'bold', color: COLORS.text },
-  list: { padding: 16 },
-  card: { flexDirection: 'row', backgroundColor: COLORS.white, borderRadius: 16, marginBottom: 14, overflow: 'hidden', borderWidth: 1, borderColor: COLORS.border, alignItems: 'center' },
-  cardImage: { width: 80, height: 80 },
-  cardContent: { flex: 1, padding: 12 },
-  cardTitle: { fontSize: 15, fontWeight: 'bold', color: COLORS.text },
-  cardStore: { fontSize: 12, color: COLORS.textLight, marginTop: 2 },
-  cardMeta: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 8 },
-  cardPrice: { fontSize: 14, fontWeight: 'bold', color: COLORS.primary },
-  cardStock: { fontSize: 12, color: COLORS.textLight },
-  cardStockEmpty: { color: '#FF6B6B', fontWeight: 'bold' },
-  deleteButton: { padding: 16 },
-  centerBox: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 40 },
-  emptyText: { fontSize: 18, fontWeight: 'bold', color: COLORS.text, marginTop: 16 },
-  emptySubtext: { fontSize: 14, color: COLORS.textLight, marginTop: 8, textAlign: 'center' },
-});
